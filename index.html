@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LXRY CUBE — Private Festival Architecture</title>
+<meta name="description" content="Private luxury cubes delivered to festival grounds. Handcrafted interiors, climate control, off-grid power. Coachella 2027 now booking.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Libre+Franklin:wght@200;300;400;500;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--g:#c8a44e;--gb:#e2c872;--d:#08080a;--d2:#101014;--b:#ece5d0;--a:#9a9490}
+html{scroll-behavior:smooth}
+body{background:var(--d);color:var(--b);font-family:'Libre Franklin',Helvetica,sans-serif;font-weight:300;overflow-x:hidden}
+::selection{background:var(--g);color:var(--d)}
+h1,h2,h3,.serif{font-family:'Cormorant Garamond',Georgia,serif}
+a{transition:opacity .2s}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:16px clamp(16px,4vw,60px);background:linear-gradient(180deg,rgba(8,8,10,.95),transparent);transition:all .3s}
+nav.scrolled{background:rgba(8,8,10,.96);backdrop-filter:blur(16px)}
+.logo{font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;font-size:1rem;letter-spacing:.12em;color:var(--b);text-decoration:none}
+.logo b{color:var(--g);font-weight:600}
+.nav-r{display:flex;gap:20px;align-items:center}
+.nav-r a{font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;color:var(--a);text-decoration:none;transition:color .3s}
+.nav-r a:hover{color:var(--g)}
+.nav-cta{padding:8px 20px !important;border:1px solid var(--g);color:var(--g) !important;font-weight:500 !important;transition:all .3s !important}
+.nav-cta:hover{background:var(--g) !important;color:var(--d) !important}
+
+/* TAG */
+.tag{font-size:.55rem;font-weight:500;letter-spacing:.35em;text-transform:uppercase;color:var(--g);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.tag::before{content:'';width:20px;height:1px;background:var(--g)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:80px clamp(16px,6vw,100px) 40px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 40%,rgba(200,164,78,.05),transparent 70%),var(--d)}
+.hero-line{position:absolute;bottom:20%;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(200,164,78,.12),transparent)}
+.hero-grid{max-width:1100px;margin:0 auto;width:100%;position:relative;z-index:2;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+.hero-tag{font-size:.5rem;font-weight:500;letter-spacing:.4em;text-transform:uppercase;color:var(--g);margin-bottom:20px;opacity:0;animation:fadeUp .6s ease .2s forwards}
+.hero h1{font-weight:300;font-size:clamp(2.6rem,6vw,5.2rem);line-height:.9;margin-bottom:16px;opacity:0;animation:fadeUp .6s ease .4s forwards}
+.hero h1 em{font-style:italic;color:var(--g)}
+.hero-desc{font-size:.85rem;font-weight:200;color:var(--a);line-height:1.7;max-width:420px;margin-bottom:28px;opacity:0;animation:fadeUp .6s ease .6s forwards}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:fadeUp .6s ease .8s forwards}
+.btn-gold{display:inline-block;padding:14px 36px;background:var(--g);color:var(--d);font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;font-weight:600;transition:all .3s}
+.btn-gold:hover{background:var(--gb);box-shadow:0 0 50px rgba(200,164,78,.15);transform:translateY(-2px)}
+.btn-outline{display:inline-block;padding:14px 36px;border:1px solid rgba(200,164,78,.3);color:var(--g);font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:all .3s}
+.btn-outline:hover{border-color:var(--g);background:rgba(200,164,78,.05)}
+
+/* CUBE 3D */
+.hero-cube{display:flex;justify-content:center;animation:fadeIn 1.2s ease .5s both}
+.cube-scene{width:clamp(180px,20vw,300px);aspect-ratio:1;perspective:700px}
+.cube-obj{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:cubespin 10s ease-in-out infinite}
+.face{position:absolute;width:100%;height:100%;border:1px solid rgba(200,164,78,.12);background:rgba(200,164,78,.015);backface-visibility:visible}
+.face.fr{transform:translateZ(130px);background:linear-gradient(135deg,rgba(200,164,78,.06),rgba(200,164,78,.01));border-color:rgba(200,164,78,.25)}
+.face.bk{transform:rotateY(180deg) translateZ(130px)}
+.face.lt{transform:rotateY(-90deg) translateZ(130px)}
+.face.rt{transform:rotateY(90deg) translateZ(130px)}
+.face.tp{transform:rotateX(90deg) translateZ(130px)}
+.face.bt{transform:rotateX(-90deg) translateZ(130px)}
+
+/* MARQUEE */
+.marquee-bar{padding:28px 0;overflow:hidden;border-top:1px solid rgba(200,164,78,.06);border-bottom:1px solid rgba(200,164,78,.06)}
+.marquee-track{display:flex;gap:36px;white-space:nowrap;animation:marquee 20s linear infinite}
+.marquee-track span{font-family:'Cormorant Garamond',Georgia,serif;font-size:.95rem;font-style:italic;color:rgba(200,164,78,.12)}
+.marquee-track .dot{color:var(--g);font-style:normal;font-size:.4rem;margin:0 18px}
+
+/* ABOUT */
+.about{padding:64px clamp(16px,6vw,100px);max-width:1100px;margin:0 auto}
+.about-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:48px}
+.about h2{font-weight:300;font-size:clamp(1.6rem,3.5vw,2.6rem);line-height:1.1;margin-bottom:12px}
+.about h2 em{font-style:italic;color:var(--g)}
+.about > .about-grid > div > p{font-size:.82rem;font-weight:200;line-height:1.7;color:var(--a)}
+.about-cards{display:flex;flex-direction:column;gap:20px}
+.acard{padding:24px 28px;border:1px solid rgba(200,164,78,.06);background:linear-gradient(135deg,rgba(200,164,78,.015),transparent);transition:all .4s}
+.acard:hover{border-color:rgba(200,164,78,.15);transform:translateX(6px)}
+.acard-inner{display:flex;gap:16px;align-items:baseline}
+.acard-num{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.8rem;color:rgba(200,164,78,.1);line-height:1;flex-shrink:0}
+.acard h3{font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g);margin-bottom:6px;font-weight:500;font-family:'Libre Franklin',sans-serif}
+.acard p{font-size:.75rem;font-weight:200;line-height:1.65;color:var(--a)}
+
+/* EXPERIENCE */
+.exp-band{padding:64px 0;background:linear-gradient(180deg,var(--d),var(--d2),var(--d))}
+.exp-inner{max-width:1100px;margin:0 auto;padding:0 clamp(16px,6vw,100px)}
+.exp-top{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:40px;align-items:end}
+.exp-top h2{font-weight:300;font-size:clamp(1.6rem,3.5vw,2.6rem);line-height:1.1}
+.exp-top h2 em{font-style:italic;color:var(--g)}
+.exp-top > p{font-size:.82rem;font-weight:200;color:var(--a);line-height:1.7;align-self:end}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.stat{padding:28px 16px;text-align:center;border:1px solid rgba(200,164,78,.06);transition:all .4s}
+.stat:hover{border-color:rgba(200,164,78,.15);background:rgba(200,164,78,.02)}
+.stat-n{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(1.8rem,3vw,2.8rem);color:var(--g);line-height:1;margin-bottom:6px}
+.stat-l{font-size:.42rem;letter-spacing:.25em;text-transform:uppercase;color:var(--a)}
+
+/* QUOTE */
+.quote{padding:64px clamp(16px,6vw,100px);max-width:780px;margin:0 auto;text-align:center}
+.qmark{font-family:'Cormorant Garamond',Georgia,serif;font-size:5rem;color:rgba(200,164,78,.08);line-height:.4;margin-bottom:16px}
+.quote blockquote{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(1rem,2vw,1.5rem);font-weight:300;line-height:1.55;color:var(--b);margin-bottom:20px}
+.quote cite{font-style:normal;font-size:.48rem;letter-spacing:.35em;text-transform:uppercase;color:var(--g);font-family:'Libre Franklin',sans-serif}
+
+/* PRICING */
+.pricing{padding:64px clamp(16px,6vw,100px) 80px;max-width:1100px;margin:0 auto}
+.pricing-head{text-align:center;margin-bottom:48px}
+.pricing-head .tag{justify-content:center}
+.pricing-head h2{font-weight:300;font-size:clamp(1.6rem,3.5vw,2.6rem);margin-bottom:8px}
+.pricing-head h2 em{font-style:italic;color:var(--g)}
+.pricing-head p{font-size:.78rem;color:var(--a);font-weight:200}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pcard{padding:36px 28px;border:1px solid rgba(200,164,78,.06);background:linear-gradient(180deg,rgba(200,164,78,.01),transparent);transition:all .4s}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.4)}
+.pcard.gb{border-color:rgba(200,164,78,.25)}
+.pcard.ob{border-color:rgba(200,164,78,.2);background:linear-gradient(180deg,rgba(200,164,78,.04),rgba(200,164,78,.01))}
+.ptier{font-size:.5rem;letter-spacing:.3em;text-transform:uppercase;color:var(--g);margin-bottom:16px;font-weight:500}
+.pprice{font-family:'Cormorant Garamond',Georgia,serif;font-size:2.6rem;font-weight:300;color:var(--b);line-height:1;margin-bottom:4px}
+.pprice.inq{font-size:1.6rem;margin-bottom:8px}
+.pper{font-size:.58rem;color:var(--a);margin-bottom:20px;font-weight:200}
+.plist{list-style:none;margin-bottom:24px}
+.plist li{font-size:.7rem;font-weight:200;color:var(--a);padding:7px 0 7px 16px;border-bottom:1px solid rgba(200,164,78,.04);position:relative}
+.plist li::before{content:'';position:absolute;left:0;top:50%;width:5px;height:5px;border:1px solid var(--g);transform:translateY(-50%) rotate(45deg)}
+.pbtn{display:block;text-align:center;padding:12px;border:1px solid rgba(200,164,78,.3);color:var(--g);font-size:.5rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:all .3s}
+.pbtn:hover{background:var(--g);color:var(--d)}
+.pbtn.filled{background:var(--g);color:var(--d);border-color:var(--g)}
+.pbtn.filled:hover{background:var(--gb)}
+
+/* FINAL CTA */
+.final{padding:80px clamp(16px,6vw,100px);text-align:center;position:relative}
+.final::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 50% at 50%,rgba(200,164,78,.04),transparent)}
+.final h2{font-weight:300;font-size:clamp(2.2rem,5vw,4rem);line-height:.95;margin-bottom:16px;position:relative}
+.final h2 em{font-style:italic;color:var(--g)}
+.final p{font-size:.82rem;font-weight:200;color:var(--a);max-width:420px;margin:0 auto 32px;line-height:1.7;position:relative}
+
+/* FOOTER */
+footer{border-top:1px solid rgba(200,164,78,.06);padding:36px clamp(16px,6vw,100px);max-width:1100px;margin:0 auto}
+.foot-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.foot-brand{font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;color:var(--a)}
+.foot-brand b{color:var(--g)}
+.foot-soc{display:flex;gap:20px}
+.foot-soc a{font-size:.45rem;letter-spacing:.2em;text-transform:uppercase;color:#555;text-decoration:none;transition:color .3s}
+.foot-soc a:hover{color:var(--g)}
+.foot-copy{font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;color:#333;margin-top:16px}
+
+/* SCROLL REVEAL */
+.rv{opacity:0;transform:translateY(30px);transition:all .6s cubic-bezier(.25,.46,.45,.94)}
+.rv.vis{opacity:1;transform:translateY(0)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes cubespin{0%,100%{transform:rotateX(-18deg) rotateY(-30deg)}50%{transform:rotateX(-18deg) rotateY(-40deg)}}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr !important}
+  .hero-cube{display:none}
+  .nav-r a:not(.nav-cta){display:none}
+  .about-grid{grid-template-columns:1fr}
+  .exp-top{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .pgrid{grid-template-columns:1fr;max-width:400px;margin:0 auto}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="logo"><b>LXRY</b> CUBE</a>
+  <div class="nav-r">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#reserve" class="nav-cta">Reserve</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-line"></div>
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag">Coachella 2027 — Now Booking</div>
+      <h1>The Desert<br>Gets a<br><em>Penthouse</em></h1>
+      <p class="hero-desc">Private luxury cubes delivered to festival grounds. Handcrafted interiors, full climate control, off-grid power, and zero contact with dirt.</p>
+      <div class="hero-btns">
+        <a href="#reserve" class="btn-gold">Reserve Your Cube</a>
+        <a href="#about" class="btn-outline">Explore</a>
+      </div>
+    </div>
+    <div class="hero-cube">
+      <div class="cube-scene">
+        <div class="cube-obj">
+          <div class="face fr"></div>
+          <div class="face bk"></div>
+          <div class="face lt"></div>
+          <div class="face rt"></div>
+          <div class="face tp"></div>
+          <div class="face bt"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-track">
+    <span>Private Festival Architecture</span><span class="dot">&#9670;</span>
+    <span>Climate Controlled</span><span class="dot">&#9670;</span>
+    <span>Off-Grid Luxury</span><span class="dot">&#9670;</span>
+    <span>Coachella</span><span class="dot">&#9670;</span>
+    <span>Stagecoach</span><span class="dot">&#9670;</span>
+    <span>Desert Trip</span><span class="dot">&#9670;</span>
+    <span>Concierge Delivery</span><span class="dot">&#9670;</span>
+    <span>Palm Springs</span><span class="dot">&#9670;</span>
+    <span>Private Festival Architecture</span><span class="dot">&#9670;</span>
+    <span>Climate Controlled</span><span class="dot">&#9670;</span>
+    <span>Off-Grid Luxury</span><span class="dot">&#9670;</span>
+    <span>Coachella</span><span class="dot">&#9670;</span>
+    <span>Stagecoach</span><span class="dot">&#9670;</span>
+    <span>Desert Trip</span><span class="dot">&#9670;</span>
+    <span>Concierge Delivery</span><span class="dot">&#9670;</span>
+    <span>Palm Springs</span><span class="dot">&#9670;</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div>
+      <div class="tag rv">The Cube</div>
+      <h2 class="rv">Not a tent. Not a van.<br>A private <em>structure.</em></h2>
+      <p class="rv">Each LXRY CUBE is a fully converted cargo trailer — designed, built, and delivered as a self-contained luxury residence. You show up with your wristband. The cube is already there.</p>
+    </div>
+    <div class="about-cards">
+      <div class="acard rv">
+        <div class="acard-inner">
+          <div class="acard-num">01</div>
+          <div>
+            <h3>Velvet Lounge Interior</h3>
+            <p>Deep plum velvet seating, smoked glass table, brass hairpin legs, walnut flooring, ambient gold LED throughout.</p>
+          </div>
+        </div>
+      </div>
+      <div class="acard rv">
+        <div class="acard-inner">
+          <div class="acard-num">02</div>
+          <div>
+            <h3>55" QLED Entertainment</h3>
+            <p>Samsung QLED on articulating mount with Bluetooth soundbar. Stream, host, or just enjoy silence with a screen.</p>
+          </div>
+        </div>
+      </div>
+      <div class="acard rv">
+        <div class="acard-inner">
+          <div class="acard-num">03</div>
+          <div>
+            <h3>Four Private Berths</h3>
+            <p>Memory foam mattresses, velvet privacy curtains, USB-C, reading lights. Hotel sleep next to festival chaos.</p>
+          </div>
+        </div>
+      </div>
+      <div class="acard rv">
+        <div class="acard-inner">
+          <div class="acard-num">04</div>
+          <div>
+            <h3>Full Off-Grid Systems</h3>
+            <p>400W solar, 200Ah LiFePO4, 2000W inverter, mini-split AC. 72 hours. No generators. No compromises.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="exp-band" id="experience">
+  <div class="exp-inner">
+    <div class="exp-top">
+      <div class="rv">
+        <div class="tag">The Experience</div>
+        <h2>Built for people who came for <em>music,</em> not survival.</h2>
+      </div>
+      <p class="rv">You spent $500 on a wristband, $200 on an outfit, and $15 on a cocktail. Then you slept on an air mattress next to a generator. LXRY CUBE exists because that math never made sense.</p>
+    </div>
+    <div class="stats">
+      <div class="stat rv"><div class="stat-n">68&deg;</div><div class="stat-l">Interior Temp</div></div>
+      <div class="stat rv"><div class="stat-n">4</div><div class="stat-l">Private Berths</div></div>
+      <div class="stat rv"><div class="stat-n">72h</div><div class="stat-l">Off-Grid Runtime</div></div>
+      <div class="stat rv"><div class="stat-n">0</div><div class="stat-l">Contact With Dirt</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote">
+  <div class="qmark rv">&ldquo;</div>
+  <blockquote class="rv">We left the Do LaB at 3AM, walked forty feet, and stepped into air conditioning and a glass of bourbon. I texted my friend in the tent village a photo. She didn't speak to me for two days.</blockquote>
+  <cite class="rv">&mdash; Weekend 1 Guest, Coachella 2026</cite>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="pricing-head">
+    <div class="tag rv" style="justify-content:center">Investment</div>
+    <h2 class="rv">Your <em>Cube.</em> Your Rules.</h2>
+    <p class="rv">Every cube includes delivery, setup, teardown, and a stocked welcome bar.</p>
+  </div>
+  <div class="pgrid">
+
+    <!-- THE CUBE -->
+    <div class="pcard gb rv">
+      <div class="ptier">The Cube</div>
+      <div class="pprice">$8,000</div>
+      <div class="pper">per weekend &mdash; up to 4 guests</div>
+      <ul class="plist">
+        <li>Full private cube &mdash; yours for the weekend</li>
+        <li>All 4 memory foam berths</li>
+        <li>55" QLED + Bluetooth soundbar</li>
+        <li>Kitchenette &amp; stocked welcome bar</li>
+        <li>Mini-split AC + full off-grid power</li>
+        <li>Private outdoor lounge setup</li>
+        <li>Concierge delivery, setup &amp; teardown</li>
+      </ul>
+      <a href="#reserve" class="pbtn">Reserve Your Cube</a>
+    </div>
+
+    <!-- PERSONALIZATION -->
+    <div class="pcard rv">
+      <div class="ptier">+ Make It Yours</div>
+      <div class="pprice">$2,500</div>
+      <div class="pper">add-on &mdash; exterior personalization</div>
+      <ul class="plist">
+        <li>Custom exterior wrap &mdash; your design, your colors</li>
+        <li>Instagram handle on the cube</li>
+        <li>Party name, crew name, or brand logo</li>
+        <li>QR code panel to your profile or playlist</li>
+        <li>LED-backlit nameplate at entry</li>
+        <li>Your cube becomes the landmark</li>
+      </ul>
+      <a href="#reserve" class="pbtn">Personalize</a>
+    </div>
+
+    <!-- THE OBSIDIAN -->
+    <div class="pcard ob rv">
+      <div class="ptier">The Obsidian</div>
+      <div class="pprice inq">By Inquiry</div>
+      <div class="pper">bespoke &mdash; white-glove experience</div>
+      <ul class="plist">
+        <li>Everything in The Cube + Personalization</li>
+        <li>Extended footprint &mdash; double-wide or multi-unit</li>
+        <li>Custom interior design consultation</li>
+        <li>Dedicated on-site concierge</li>
+        <li>Premium spirits &amp; catering package</li>
+        <li>Artist meet &amp; greet coordination</li>
+        <li>Private security detail</li>
+        <li>Priority placement &mdash; front of campgrounds</li>
+      </ul>
+      <a href="mailto:obsidian@lxrycube.com" class="pbtn filled">Contact Us</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final" id="reserve">
+  <h2>The Desert <em>Awaits</em></h2>
+  <p>Limited cubes for Coachella 2027 Weekend 1 &amp; 2. Stagecoach and corporate activation packages opening soon.</p>
+  <a href="mailto:reserve@lxrycube.com" class="btn-gold" style="position:relative">Reserve Your Cube</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-row">
+    <div class="foot-brand"><b>LXRY</b> CUBE &mdash; Palm Springs, CA</div>
+    <div class="foot-soc">
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+      <a href="#">X</a>
+    </div>
+  </div>
+  <div class="foot-copy">&copy; 2026 LXRY CUBE. All rights reserved.</div>
+</footer>
+
+<script>
+// Nav scroll effect
+window.addEventListener('scroll', function() {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Scroll reveal
+var observer = new IntersectionObserver(function(entries) {
+  for (var i = 0; i < entries.length; i++) {
+    if (entries[i].isIntersecting) {
+      entries[i].target.classList.add('vis');
+      observer.unobserve(entries[i].target);
+    }
+  }
+}, { threshold: 0.1 });
+
+var els = document.querySelectorAll('.rv');
+for (var i = 0; i < els.length; i++) {
+  observer.observe(els[i]);
+}
+</script>
+</body>
+</html>
