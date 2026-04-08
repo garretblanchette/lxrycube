@@ -119,6 +119,8 @@ nav.scrolled{background:rgba(8,8,10,.96);backdrop-filter:blur(16px)}
 .plist li::before{content:'';position:absolute;left:0;top:50%;width:5px;height:5px;border:1px solid var(--g);transform:translateY(-50%) rotate(45deg)}
 .pbtn{display:block;text-align:center;padding:12px;border:1px solid rgba(200,164,78,.3);color:var(--g);font-size:.5rem;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:all .3s}
 .pbtn:hover{background:var(--g);color:var(--d)}
+.promo-badge{display:inline-block;background:var(--g);color:var(--d);font-size:.4rem;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;font-weight:600;font-family:'Libre Franklin',sans-serif;margin-bottom:12px}
+.strike{text-decoration:line-through;color:rgba(200,164,78,.3);font-size:1.6rem;margin-right:12px}
 .pbtn.filled{background:var(--g);color:var(--d);border-color:var(--g)}
 .pbtn.filled:hover{background:var(--gb)}
 
@@ -305,7 +307,7 @@ footer{border-top:1px solid rgba(200,164,78,.06);padding:36px clamp(16px,6vw,100
   <div class="pricing-head">
     <div class="tag rv" style="justify-content:center">Investment</div>
     <h2 class="rv">Your <em>Cube.</em> Your Rules.</h2>
-    <p class="rv">Every cube includes delivery, setup, teardown, and a stocked welcome bar.</p>
+    <p class="rv">Every cube includes delivery, setup, teardown, a stocked welcome bar, and a 24/7 personal driver &amp; valet.</p>
   </div>
   <div class="pgrid">
 
@@ -322,14 +324,16 @@ footer{border-top:1px solid rgba(200,164,78,.06);padding:36px clamp(16px,6vw,100
         <li>Mini-split AC + independent power &amp; device charging</li>
         <li>Private outdoor lounge setup</li>
         <li>Concierge delivery, setup &amp; teardown</li>
+        <li>24/7 personal driver &amp; valet</li>
       </ul>
       <a href="#reserve" class="pbtn">Reserve Your Cube</a>
     </div>
 
     <!-- PERSONALIZATION -->
     <div class="pcard rv">
+      <div class="promo-badge">Launch Weekend &mdash; This Friday Only</div>
       <div class="ptier">+ Make It Yours</div>
-      <div class="pprice">$2,500</div>
+      <div class="pprice"><span class="strike">$2,500</span>$199</div>
       <div class="pper">add-on &mdash; exterior personalization</div>
       <ul class="plist">
         <li>Custom exterior wrap &mdash; your design, your colors</li>
