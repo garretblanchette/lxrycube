@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LXRY CUBE — Private Festival Architecture</title>
 <meta name="description" content="Private luxury cubes delivered to festival grounds. Handcrafted interiors, climate control, independent power. Coachella 2026 now booking.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Libre+Franklin:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Libre+Franklin:wght@200;300;400;500;600&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--g:#c8a44e;--gb:#e2c872;--d:#08080a;--d2:#101014;--b:#ece5d0;--a:#9a9490}
 html{scroll-behavior:smooth}
@@ -355,7 +357,7 @@ footer{border-top:1px solid rgba(200,164,78,.06);padding:36px clamp(16px,6vw,100
         <li>Private security detail</li>
         <li>Priority placement &mdash; front of campgrounds</li>
       </ul>
-      <a href="/cdn-cgi/l/email-protection#412e2332282528202f012d393338223423246f222e2c" class="pbtn filled">Contact Us</a>
+      <a href="#" onclick="window.location='mai'+'lto:'+'obsidian'+'@lxrycube.com';return false" class="pbtn filled">Contact Us</a>
     </div>
 
   </div>
@@ -365,7 +367,7 @@ footer{border-top:1px solid rgba(200,164,78,.06);padding:36px clamp(16px,6vw,100
 <section class="final" id="reserve">
   <h2>The Desert <em>Awaits</em></h2>
   <p>Limited cubes for Coachella 2026 Weekend 1 &amp; 2. Stagecoach and corporate activation packages opening soon.</p>
-  <a href="/cdn-cgi/l/email-protection#2654435543545043664a5e545f455344430845494b" class="btn-gold" style="position:relative">Reserve Your Cube</a>
+  <a href="#" onclick="window.location='mai'+'lto:'+'reserve'+'@lxrycube.com';return false" class="btn-gold" style="position:relative">Reserve Your Cube</a>
 </section>
 
 <!-- FOOTER -->
@@ -381,7 +383,7 @@ footer{border-top:1px solid rgba(200,164,78,.06);padding:36px clamp(16px,6vw,100
   <div class="foot-copy">&copy; 2026 LXRY CUBE. All rights reserved.</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // Nav scroll effect
 window.addEventListener('scroll', function() {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 40);
@@ -392,4 +394,15 @@ var observer = new IntersectionObserver(function(entries) {
   for (var i = 0; i < entries.length; i++) {
     if (entries[i].isIntersecting) {
       entries[i].target.classList.add('vis');
-      observer.unobserve
+      observer.unobserve(entries[i].target);
+    }
+  }
+}, { threshold: 0.1 });
+
+var els = document.querySelectorAll('.rv');
+for (var i = 0; i < els.length; i++) {
+  observer.observe(els[i]);
+}
+</script>
+</body>
+</html>
